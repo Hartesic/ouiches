@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ouichesApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Ouich!es Extension</title>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/popup.css">
+	<script src="lib/jquery-2.1.1.min.js"></script>
+	<script src="lib/angular.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="lib/howlerjs/howler.min.js"></script>
+	<script src="popup.js"></script>
+</head>
+<body style="width:200px;">
+	<div class="container row col-md-12" ng-controller="ouichesController">
+		<div class="navbar navbar-default navbar-fixed-top" id="navbar_search">
+			<div class="container row navbar-header">
+				<a class="navbar-brand" href="#" ng-click="openSite()" title="Se rendre sur ouich.es">Ouich!es</a>
+				<input type="text" name="search_tag" id="search_tag" ng-model="searchTag" class="form-control" placeholder="Rechercher un tag" autofocus>
+			</div>
+		</div>
+		<div id="tag_list">
+			<div class="list-group">
+				<a href="#" class="list-group-item list-group-item-info" ng-repeat="tag in tag_list | filter:searchTag" ng-click="readTag(tag);">#{{ tag }}</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

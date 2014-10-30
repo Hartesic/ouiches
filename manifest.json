@@ -1,0 +1,11 @@
+{
+	"manifest_version": 2,
+
+	"name": "Ouich!es",
+	"description": "Les répliques les plus classes du monde (ceci n'est pas une application sur le cyclimse).",
+	"version": "1.9",
+
+	"browser_action": {
+		"default_popup": "popup.html"
+	}
+}
