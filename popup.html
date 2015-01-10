@@ -19,9 +19,24 @@
 				<input type="text" name="search_tag" id="search_tag" ng-model="searchTag" class="form-control" placeholder="Rechercher un tag" autofocus>
 			</div>
 		</div>
-		<div id="tag_list">
-			<div class="list-group">
-				<a href="#" class="list-group-item list-group-item-info" ng-repeat="tag in tag_list | filter:searchTag" ng-click="readTag(tag);">#{{ tag }}</a>
+		<div id="tags">
+			<div id="fav_list" ng-hide="searchTag.length > 0 || fav_list.length == 0">
+				<h4>Favoris</h4>
+				<div class="list-group">
+					<a href="#" class="list-group-item list-group-item-info" ng-repeat="fav in fav_list" ng-click="readTag(fav);">
+						#{{ fav }}
+						<span class="glyphicon glyphicon-star fav-icon" ng-click="removeTagFromFavs(fav); $event.stopPropagation();" title="Retirer des favoris"></span>
+					</a>
+				</div>
+			</div>
+			<div id="tag_list">
+				<h4 ng-hide="fav_list.length == 0 || searchTag.length > 0">Tous</h4>
+				<div class="list-group">
+					<a href="#" class="list-group-item list-group-item-info" ng-repeat="tag in tag_list | filter:searchTag" ng-click="readTag(tag);">
+						#{{ tag }}
+						<span class="glyphicon glyphicon-star-empty fav-icon" ng-click="addTagToFavs(tag); $event.stopPropagation();" title="Ajouter aux favoris"></span>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>

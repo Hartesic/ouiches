@@ -1,3 +1,8 @@
-#tag_list {
+#tags {
 	margin-top: 100px;
+}
+
+.fav-icon {
+	float: right;
+	font-size: 130%;
 }
