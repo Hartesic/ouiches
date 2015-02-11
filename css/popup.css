@@ -1,8 +1,39 @@
-#tags {
+body {
+	width: 600px;
+}
+
+h1 {
+	font-size: 150%;
+}
+
+#tags, #lyrics {
 	margin-top: 100px;
+	display: inline-block;
+}
+
+#tags {
+	width: 40%;
+	padding-right: 10px;
+	padding-left: 5px;
+	border-right: 1px #DBDBDB solid;
+}
+
+#lyrics {
+	width: 55%;
+	margin-left: 10px;
+	vertical-align: top;
+}
+
+#lyrics_list {
+	list-style: none;
+	padding-left: 10px;
 }
 
 .fav-icon {
 	float: right;
 	font-size: 130%;
+}
+
+.tag_decoration {
+	color: #31708F;
 }

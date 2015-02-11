@@ -11,7 +11,7 @@
 	<script src="lib/howlerjs/howler.min.js"></script>
 	<script src="popup.js"></script>
 </head>
-<body style="width:200px;">
+<body>
 	<div class="container row col-md-12" ng-controller="ouichesController">
 		<div class="navbar navbar-default navbar-fixed-top" id="navbar_search">
 			<div class="container row navbar-header">
@@ -20,23 +20,32 @@
 			</div>
 		</div>
 		<div id="tags">
-			<div id="fav_list" ng-hide="searchTag.length > 0 || fav_list.length == 0">
-				<h4>Favoris</h4>
+			<div id="fav_list" ng-show="(fav_list | notFalse:'array').length > 0">
+				<h1>Favoris</h1>
 				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-info" ng-repeat="fav in fav_list" ng-click="readTag(fav);">
+					<a href="#" class="list-group-item list-group-item-info" ng-repeat="(fav, index) in fav_list | notFalse" ng-click="readTag(fav, index);">
 						#{{ fav }}
 						<span class="glyphicon glyphicon-star fav-icon" ng-click="removeTagFromFavs(fav); $event.stopPropagation();" title="Retirer des favoris"></span>
 					</a>
 				</div>
 			</div>
 			<div id="tag_list">
-				<h4 ng-hide="fav_list.length == 0 || searchTag.length > 0">Tous</h4>
+				<h1 ng-hide="searchTag.length > 0">Tous les tags</h1>
+				<h1 ng-show="searchTag.length > 0">Résultats pour <span class="tag_decoration">{{ searchTag }}</span></h1>
 				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-info" ng-repeat="tag in tag_list | filter:searchTag" ng-click="readTag(tag);">
-						#{{ tag }}
-						<span class="glyphicon glyphicon-star-empty fav-icon" ng-click="addTagToFavs(tag); $event.stopPropagation();" title="Ajouter aux favoris"></span>
+					<a href="#" class="list-group-item list-group-item-info" ng-repeat="item in tag_list | filter:searchTag" ng-click="readTag(item.tag, $index);">
+						#{{ item.tag }}
+						<span class="glyphicon glyphicon-star-empty fav-icon" ng-click="addTagToFavs(item.tag, $index); $event.stopPropagation();" title="Ajouter aux favoris"></span>
 					</a>
 				</div>
+			</div>
+		</div><!--
+	 --><div id="lyrics">
+			<h1>Texte<span ng-show="actual_tag !== null"> de <span class="tag_decoration" >#{{ actual_tag.tag }}</span></span></h1>
+			<div class="tag_lyrics">
+				<ul id="lyrics_list">
+					<li ng-repeat="item in actual_tag.quotes">"{{ item.text }}"</li>
+				</ul>
 			</div>
 		</div>
 	</div>
