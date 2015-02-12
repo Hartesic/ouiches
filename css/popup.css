@@ -6,6 +6,10 @@ h1 {
 	font-size: 150%;
 }
 
+#content {
+	min-height: 215px;
+}
+
 #tags, #lyrics {
 	margin-top: 100px;
 	display: inline-block;
@@ -21,7 +25,7 @@ h1 {
 #lyrics {
 	width: 55%;
 	margin-left: 10px;
-	vertical-align: top;
+	position: fixed;
 }
 
 #lyrics_list {
