@@ -7,7 +7,7 @@ h1 {
 }
 
 #content {
-	min-height: 215px;
+	min-height: 300px;
 }
 
 #tags, #lyrics {
@@ -18,19 +18,22 @@ h1 {
 #tags {
 	width: 40%;
 	padding-right: 10px;
-	padding-left: 5px;
-	border-right: 1px #DBDBDB solid;
+	margin-left: 5px;
 }
 
 #lyrics {
 	width: 55%;
-	margin-left: 10px;
+	height: 100%;
+	padding-left: 10px;
 	position: fixed;
+	border-left: 1px #DBDBDB solid;
 }
 
 #lyrics_list {
+	height: 300px;
 	list-style: none;
 	padding-left: 10px;
+	overflow: auto;
 }
 
 .fav-icon {

@@ -51,14 +51,12 @@
 			</div>
 			<div id="lyrics">
 				<h1>Texte<span ng-show="hoveredTag != null"> de <span class="tag_decoration" >#{{ hoveredTag.tag }}</span></span></h1>
-				<div class="tag_lyrics">
-					<ul id="lyrics_list">
-						<li ng-repeat="item in hoveredTag.quotes">"{{ item.text }}"</li>
-					</ul>
-				</div>
 				<div ng-hide="hoveredTag != null">
 					Survolez ou sélectionnez un tag pour voir son texte
 				</div>
+				<ul id="lyrics_list">
+					<li ng-repeat="item in hoveredTag.quotes">"{{ item.text }}"</li>
+				</ul>
 			</div>
 		</div>
 	</div>
