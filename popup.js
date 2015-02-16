@@ -4,39 +4,47 @@ var ouichesApp = angular.module('ouichesApp', []);
 ouichesApp.controller('ouichesController', ['$scope', '$http', 'chromeStorage', function($scope, $http, chromeStorage, tools){
 	$scope.searchTag = '';
 	$scope.sound;
-	$scope.actual_tag = null;
-	$scope.tag_list = [];
-	$scope.fav_list = {};
+	$scope.selectedTag = null;
+	$scope.hoveredTag = null;
+	$scope.tagList = [];
+	$scope.favList = {};
 	$scope.getTags = function(data){
-		$scope.tag_list = data.items;
+		$scope.tagList = data.items;
 	};
 	$scope.getFavs = function(data){
-		$scope.fav_list = data;
-	}
+		$scope.favList = data;
+	};
 	$scope.openSite = function(){
 		window.open('http://ouich.es/');
 	};
-	$scope.readTag = function(tag, index){
+	$scope.readTag = function(tag, tagObj){
 		if (typeof $scope.sound == 'object')
 			$scope.sound.stop();
 		$scope.sound = new Howl({
 			urls: ['http://ouich.es/mp3/' + tag + '.mp3']
 		}).play();
-		$scope.actual_tag = $scope.tag_list[index];
-		console.log($scope.actual_tag);
+		$scope.selectedTag = tagObj;
 	};
-	$scope.addTagToFavs = function(tag, index){
-		$scope.fav_list[tag] = index;
+	$scope.updateHoveredTag = function(tag){
+		$scope.hoveredTag = tag;
+	};
+	$scope.addTagToFavs = function(tag, tagObj){
+		$scope.favList[tag] = $scope.tagList.indexOf(tagObj);
 		var data = {};
-		data[tag] = index;
+		data[tag] = $scope.tagList.indexOf(tagObj);
 		chromeStorage.set(data, "Favoris ajouté");
 	};
 	$scope.removeTagFromFavs = function(tag){
-		$scope.fav_list[tag] = false;
+		$scope.favList[tag] = false;
 		var data = {};
 		data[tag] = false;
 		chromeStorage.set(data, "Favoris supprimé");
-	}
+	};
+	$scope.isFav = function(tag){
+		if (typeof $scope.favList[tag] === 'undefined')
+			return false;
+		return $scope.favList[tag] !== false;
+	};
 	$http.get('tags.json').success($scope.getTags);
 	chromeStorage.get(null, $scope.getFavs);
 }]);
@@ -55,23 +63,23 @@ ouichesApp.factory('chromeStorage', [function(){
 }]);
 
 ouichesApp.filter('notFalse', function(){
-	return function(favs, data_type){
-		if (typeof data_type === 'undefined' || data_type === 'object'){
-			var filtered_favs = {};
+	return function(favs, dataType){
+		if (typeof dataType === 'undefined' || dataType === 'object'){
+			var filteredFavs = {};
 			for (var fav in favs){
 				if (favs[fav] !== false)
-					filtered_favs[fav] = favs[fav];
+					filteredFavs[fav] = favs[fav];
 			}
-			return filtered_favs;
-		} else if (data_type === 'array'){
-			var filtered_favs = [];
+			return filteredFavs;
+		} else if (dataType === 'array'){
+			var filteredFavs = [];
 			for (var fav in favs){
 				if (favs[fav] !== false)
-					filtered_favs.push(fav);
+					filteredFavs.push(fav);
 			}
-			return filtered_favs;
+			return filteredFavs;
 		} else
-			console.log('Error: Unkown data type "' + data_type + '"');
+			console.log('Error: Unkown data type "' + dataType + '"');
 		return;
 	};
 });

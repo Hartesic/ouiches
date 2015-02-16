@@ -3,7 +3,7 @@
 
 	"name": "Ouich!es",
 	"description": "Les répliques les plus classes du monde (ceci n'est pas une application sur le cyclimse).",
-	"version": "2.0",
+	"version": "3.0",
 
 	"permissions": [
 		"storage"
