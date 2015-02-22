@@ -4,6 +4,11 @@
 	"name": "Ouich!es",
 	"description": "Les répliques les plus classes du monde (ceci n'est pas une application sur le cyclimse).",
 	"version": "3.0",
+	"icons":{
+		"16": "img/ouiches-icon-16.png",
+		"48": "img/ouiches-icon-48.png",
+		"128": "img/ouiches-icon-128.png"
+	},
 
 	"permissions": [
 		"storage"
