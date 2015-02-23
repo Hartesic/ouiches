@@ -1,20 +1,20 @@
 {
-	"manifest_version": 2,
+    "manifest_version": 2,
 
-	"name": "Ouich!es",
-	"description": "Les répliques les plus classes du monde (ceci n'est pas une application sur le cyclimse).",
-	"version": "3.1",
-	"icons":{
-		"16": "img/ouiches-icon-16.png",
-		"48": "img/ouiches-icon-48.png",
-		"128": "img/ouiches-icon-128.png"
-	},
+    "name": "Ouich!es",
+    "description": "Les répliques les plus classes du monde (ceci n'est pas une application sur le cyclimse).",
+    "version": "3.2",
+    "icons":{
+        "16": "img/ouiches-icon-16.png",
+        "48": "img/ouiches-icon-48.png",
+        "128": "img/ouiches-icon-128.png"
+    },
 
-	"permissions": [
-		"storage"
-	],
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
 
-	"browser_action": {
-		"default_popup": "popup.html"
-	}
+    "permissions": [
+        "storage"
+    ]
 }

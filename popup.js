@@ -2,12 +2,6 @@
 var ouichesApp = angular.module('ouichesApp', []);
 
 ouichesApp.controller('ouichesController', ['$scope', '$http', 'chromeStorage', function($scope, $http, chromeStorage, tools){
-	$scope.searchTag = '';
-	$scope.sound;
-	$scope.selectedTag = null;
-	$scope.hoveredTag = null;
-	$scope.tagList = [];
-	$scope.favList = {};
 	$scope.getTags = function(data){
 		$scope.tagList = data.items;
 	};
@@ -17,21 +11,21 @@ ouichesApp.controller('ouichesController', ['$scope', '$http', 'chromeStorage', 
 	$scope.openSite = function(){
 		window.open('http://ouich.es/');
 	};
-	$scope.readTag = function(tag, tagObj){
-		if (typeof $scope.sound == 'object')
+	$scope.readTag = function(tagObj){
+		if ($scope.sound !== null)
 			$scope.sound.stop();
 		$scope.sound = new Howl({
-			urls: ['http://ouich.es/mp3/' + tag + '.mp3']
+			urls: ['http://ouich.es/mp3/' + tagObj.tag + '.mp3']
 		}).play();
 		$scope.selectedTag = tagObj;
 	};
 	$scope.updateHoveredTag = function(tag){
 		$scope.hoveredTag = tag;
 	};
-	$scope.addTagToFavs = function(tag, tagObj){
-		$scope.favList[tag] = $scope.tagList.indexOf(tagObj);
+	$scope.addTagToFavs = function(tagObj){
+		$scope.favList[tagObj.tag] = $scope.tagList.indexOf(tagObj);
 		var data = {};
-		data[tag] = $scope.tagList.indexOf(tagObj);
+		data[tagObj.tag] = $scope.tagList.indexOf(tagObj);
 		chromeStorage.set(data, "Favoris ajouté");
 	};
 	$scope.removeTagFromFavs = function(tag){
@@ -45,8 +39,20 @@ ouichesApp.controller('ouichesController', ['$scope', '$http', 'chromeStorage', 
 			return false;
 		return $scope.favList[tag] !== false;
 	};
-	$http.get('tags.json').success($scope.getTags);
-	chromeStorage.get(null, $scope.getFavs);
+	/*
+	** Main function
+	** Initialize the tags, favorites and $scope variables
+	*/
+	$scope.init = function(){
+		$scope.searchTag = '';
+		$scope.sound = null;
+		$scope.selectedTag = null;
+		$scope.hoveredTag = null;
+		$scope.tagList = [];
+		$scope.favList = {};
+		$http.get('tags.json').success($scope.getTags);
+		chromeStorage.get(null, $scope.getFavs);
+	}();
 }]);
 
 ouichesApp.factory('chromeStorage', [function(){

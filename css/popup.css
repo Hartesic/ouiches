@@ -6,6 +6,15 @@ h1 {
 	font-size: 150%;
 }
 
+.fav-icon {
+	float: right;
+	font-size: 130%;
+}
+
+.tag_decoration {
+	color: #31708F;
+}
+
 #content {
 	min-height: 300px;
 }
@@ -26,7 +35,9 @@ h1 {
 	height: 100%;
 	padding-left: 10px;
 	position: fixed;
-	border-left: 1px #DBDBDB solid;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #DBDBDB;
 }
 
 #lyrics_list {
@@ -34,13 +45,4 @@ h1 {
 	list-style: none;
 	padding-left: 10px;
 	overflow: auto;
-}
-
-.fav-icon {
-	float: right;
-	font-size: 130%;
-}
-
-.tag_decoration {
-	color: #31708F;
 }

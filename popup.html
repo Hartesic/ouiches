@@ -16,7 +16,7 @@
 		<div class="navbar navbar-default navbar-fixed-top" id="navbar">
 			<div class="container row navbar-header">
 				<a class="navbar-brand" href="#" ng-click="openSite()" title="Se rendre sur ouich.es">Ouich!es</a>
-				<input type="text" name="search_tag" id="search_tag" ng-model="searchTag" class="form-control" placeholder="Rechercher un tag" autofocus>
+				<input type="text" name="search_tag" id="search_tag" ng-model="searchTag" class="form-control" placeholder="Rechercher un tag ou son texte" autofocus>
 			</div>
 		</div>
 		<div id="content">
@@ -24,7 +24,7 @@
 				<div id="fav_list" ng-show="searchTag.length === 0 && (favList | notFalse:'array').length > 0">
 					<h1>Favoris</h1>
 					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-info" ng-repeat="(fav, index) in favList | notFalse" ng-click="readTag(fav, tagList[index]); $event.preventDefault();"
+						<a href="#" class="list-group-item list-group-item-info" ng-repeat="(fav, index) in favList | notFalse" ng-click="readTag(tagList[index]); $event.preventDefault();"
 						ng-mouseenter="updateHoveredTag(tagList[index])" ng-mouseleave="updateHoveredTag(selectedTag)">
 							#{{ fav }}
 							<span class="glyphicon glyphicon-star fav-icon" ng-click="removeTagFromFavs(fav); $event.stopPropagation(); $event.preventDefault();" title="Retirer des favoris"></span>
@@ -35,13 +35,13 @@
 					<h1 ng-hide="searchTag.length > 0">Tous les tags</h1>
 					<h1 ng-show="searchTag.length > 0">Résultats pour "<span class="tag_decoration">{{ searchTag }}</span>"</h1>
 					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-info" ng-repeat="item in tagList | filter:searchTag" ng-click="readTag(item.tag, item); $event.preventDefault();"
+						<a href="#" class="list-group-item list-group-item-info" ng-repeat="item in tagList | filter:searchTag" ng-click="readTag(item); $event.preventDefault();"
 						ng-mouseenter="updateHoveredTag(item)" ng-mouseleave="updateHoveredTag(selectedTag)">
 							#{{ item.tag }}
 							<span ng-show="isFav(item.tag)" class="glyphicon glyphicon-star fav-icon" title="Retirer des favoris"
 							ng-click="removeTagFromFavs(item.tag); $event.stopPropagation(); $event.preventDefault();"></span>
 							<span ng-hide="isFav(item.tag)" class="glyphicon glyphicon-star-empty fav-icon" title="Ajouter aux favoris"
-							ng-click="addTagToFavs(item.tag, item); $event.stopPropagation(); $event.preventDefault();"></span>
+							ng-click="addTagToFavs(item); $event.stopPropagation(); $event.preventDefault();"></span>
 						</a>
 						<a href="#" class="list-group-item disabled" ng-show="(tagList | filter:searchTag).length === 0" ng-click="$event.preventDefault();">
 							Aucun résultat pour "{{ searchTag }}"
@@ -50,8 +50,8 @@
 				</div>
 			</div>
 			<div id="lyrics">
-				<h1>Texte<span ng-show="hoveredTag != null"> de <span class="tag_decoration" >#{{ hoveredTag.tag }}</span></span></h1>
-				<div ng-hide="hoveredTag != null">
+				<h1>Texte<span ng-show="hoveredTag !== null"> de <span class="tag_decoration" >#{{ hoveredTag.tag }}</span></span></h1>
+				<div ng-hide="hoveredTag !== null">
 					Survolez ou sélectionnez un tag pour voir son texte
 				</div>
 				<ul id="lyrics_list">
