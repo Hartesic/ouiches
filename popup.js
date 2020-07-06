@@ -9,13 +9,13 @@ ouichesApp.controller('ouichesController', ['$scope', '$http', 'chromeStorage', 
 		$scope.favList = data;
 	};
 	$scope.openSite = function(){
-		window.open('http://ouich.es/');
+		window.open('https://ouich.es/');
 	};
 	$scope.readTag = function(tagObj){
 		if ($scope.sound !== null)
 			$scope.sound.stop();
 		$scope.sound = new Howl({
-			urls: ['http://ouich.es/mp3/' + tagObj.tag + '.mp3']
+			urls: ['https://ouich.es/mp3/' + tagObj.tag + '.mp3']
 		}).play();
 		$scope.selectedTag = tagObj;
 	};
