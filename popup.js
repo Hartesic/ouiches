@@ -1,5 +1,5 @@
 'use strict';
-var ouichesApp = angular.module('ouichesApp', []);
+const ouichesApp = angular.module('ouichesApp', []);
 
 ouichesApp.controller('ouichesController', ['$scope', '$http', 'chromeStorage', function($scope, $http, chromeStorage, tools){
 	$scope.getTags = function(data){
@@ -24,13 +24,13 @@ ouichesApp.controller('ouichesController', ['$scope', '$http', 'chromeStorage', 
 	};
 	$scope.addTagToFavs = function(tagObj){
 		$scope.favList[tagObj.tag] = $scope.tagList.indexOf(tagObj);
-		var data = {};
+		const data = {};
 		data[tagObj.tag] = $scope.tagList.indexOf(tagObj);
 		chromeStorage.set(data, "Favoris ajouté");
 	};
 	$scope.removeTagFromFavs = function(tag){
 		$scope.favList[tag] = false;
-		var data = {};
+		const data = {};
 		data[tag] = false;
 		chromeStorage.set(data, "Favoris supprimé");
 	};
@@ -71,15 +71,15 @@ ouichesApp.factory('chromeStorage', [function(){
 ouichesApp.filter('notFalse', function(){
 	return function(favs, dataType){
 		if (typeof dataType === 'undefined' || dataType === 'object'){
-			var filteredFavs = {};
-			for (var fav in favs){
+			const filteredFavs = {};
+			for (let fav in favs){
 				if (favs[fav] !== false)
 					filteredFavs[fav] = favs[fav];
 			}
 			return filteredFavs;
 		} else if (dataType === 'array'){
-			var filteredFavs = [];
-			for (var fav in favs){
+			const filteredFavs = [];
+			for (let fav in favs){
 				if (favs[fav] !== false)
 					filteredFavs.push(fav);
 			}
